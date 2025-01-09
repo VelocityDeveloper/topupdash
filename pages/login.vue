@@ -1,4 +1,6 @@
 <template>
+
+
   <Message severity="error" class="mb-4 max-w-[400px] w-full mx-auto" v-if="route.query.redirect && route.query.redirect !== '/'">
     Hmmm, sepertinya anda mencoba mengakses halaman
     <em>"{{ route.query.redirect }}"</em>, silahkan login terlebih dahulu
@@ -10,7 +12,9 @@
   <form @submit.prevent="handleLogin" ref="form" class="max-w-[400px] mx-auto rounded-lg border 
   border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 p-4
   flex justify-center flex-col gap-4 w-full" >
-      <h1 class="text-2xl font-bold">Login</h1>
+      <div class="flex justify-center">
+        <img src="~/public/favicon.ico" alt="" class="max-w-[90px]">
+      </div>
       <IftaLabel>
           <InputText id="email" v-model="credentials.email" class="w-full" type="email" variant="filled"/>
           <label for="email">Email</label>
@@ -19,7 +23,7 @@
           <InputText type="password" id="password" v-model="credentials.password" class="w-full" />
           <label for="password">Password</label>
       </IftaLabel>
-      <div>
+      <div class="flex justify-end">
         <Button label="Login" type="submit" ><Icon name="lucide:log-in"/> Login</Button>
       </div>
   </form>
@@ -27,6 +31,7 @@
 
 <script setup lang="ts">
   definePageMeta({
+    layout: 'blank',
     title: 'Login',
   })
   const { login } = useSanctumAuth()

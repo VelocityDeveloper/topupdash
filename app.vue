@@ -1,11 +1,6 @@
 <template>
   <NuxtLoadingIndicator />
-  <NuxtLayout :name="layoutCondition">
+  <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
 </template>
-
-<script setup lang="ts">
-  const { isAuthenticated } = useSanctumAuth();
-  const layoutCondition = computed(() => (isAuthenticated.value ? 'dashboard' : 'default'));
-</script>
