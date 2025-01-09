@@ -1,4 +1,9 @@
 <template>
+
+  <div class="mb-10">    
+    <DashboardCardInfo />  
+  </div>
+
   <div class="flex flex-col md:flex-row gap-4">
 
       <div class="basis-[100%] md:basis-[70%]">
