@@ -19,12 +19,29 @@
             </div>            
           </div>
           <div class="flex justify-end">
-            <Button variant="text">
+
+            <Button variant="text" size="small" @click="toggleNotif">
               <Icon name="lucide:bell"/>
             </Button>
-            <Button variant="text">
-              <Icon name="lucide:user" class="md:mr-2"/> <span class="hidden md:inline">Admin</span>
+            <Popover ref="opNotif">
+              <div class="w-[10rem] max-h-40 overflow-y-auto">
+                  <ul class="text-sm">
+                      <li v-for="notif in notifs" class="border-b py-1">
+                        {{ notif.message }}
+                        <br><span class="text-xs opacity-50">{{ notif.time }}</span>
+                      </li>
+                  </ul>
+              </div>
+            </Popover>
+
+            <Button variant="text" size="small" @click="toggleMenuUser">
+              <Icon name="lucide:user" class="md:mr-1"/>
+              <span class="hidden md:inline">
+                {{ user?.name }}
+              </span>
             </Button>
+            <Menu ref="menuUser" :model="itemsmenuUser" :popup="true" />
+
             <Button variant="text" @click="toggleSidebar" class="md:!hidden">
               <Icon name="lucide:menu"/>
             </Button>
@@ -42,10 +59,56 @@
 </template>
 
 <script setup lang="ts">
-import SidebarApp from '../components/SidebarApp.vue';
-
+  interface User {
+    name: string;
+  }
+  const { user, logout } = useSanctumAuth() as { user: Ref<User | null>, logout: () => void };
+    
   const isOpen = ref(false)
   const toggleSidebar = () => {
     isOpen.value = !isOpen.value
   }
+
+  const menuUser = ref();
+  const itemsmenuUser = ref([
+      {
+          label: user.value?.name,
+          items: [
+              {
+                  label: 'Logout',
+                  command: () => {
+                      logout();
+                  }
+              }
+          ]
+      }
+  ]);
+  const toggleMenuUser = (event: any) => {
+      menuUser.value.toggle(event);
+  };
+  
+  const opNotif = ref();  
+  const notifs = ref();
+  const toggleNotif = (event: any) => {
+    opNotif.value.toggle(event);
+    notifs.value = [
+      {
+        message: 'Transaksi baru, Pulsa XL Rp. 10.000',
+        time:'2025-01-01',
+      },
+      {
+        message: 'Transaksi baru, Pulsa 3 Rp. 50.000',
+        time:'2025-01-02',
+      },
+      {
+        message: 'Transaksi baru, Topup Mobile Legends Rp. 100.000',
+        time:'2025-01-03',
+      },
+      {
+        message: 'Transaksi baru, Topup FreeFire Rp. 50.000',
+        time:'2025-01-05',
+      },
+    ];
+}
+
 </script>
