@@ -1,6 +1,9 @@
 <template>
-  <div class="flex justify-center items-center gap-2 mt-5 mb-3 mx-3">
-    <img src="~/public/favicon.ico" alt="" class="max-w-[40px]">
+  <div class="group flex justify-center items-center gap-2 mt-5 mb-3 mx-3">
+    <div class="relative">
+        <img src="~/public/favicon.ico" alt="" class="child group-hover:opacity-0 max-w-[40px] transition-opacity duration-300 ease-in-out">
+        <img src="~/public/logo-flash.png" alt="" class="absolute top-0 child opacity-0 group-hover:opacity-100 max-w-[40px] transition-opacity duration-300 ease-in-out">
+    </div>
     <div>
       <div class="font-bold">TOPUP</div>
       <div class="text-xs opacity-50">Velocity Developer</div>

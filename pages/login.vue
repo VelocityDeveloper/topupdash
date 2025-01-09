@@ -13,8 +13,13 @@
   border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 p-4
   flex justify-center flex-col gap-4 w-full" >
 
-      <div class="flex justify-center items-center gap-2 mt-5 mb-3 mx-3">
-        <img src="~/public/favicon.ico" alt="" class="max-w-[60px]" :class="{'animation-pulse': isLoading}">
+      <div class="group flex justify-center items-center gap-2 mt-5 mb-3 mx-3">
+
+        <div class="relative">
+            <img src="~/public/favicon.ico" alt="" class="child group-hover:opacity-0 max-w-[50px] transition-opacity duration-300 ease-in-out"  :class="{'opacity-0': isLoading}">
+            <img src="~/public/logo-flash.png" alt="" class="absolute top-0 child opacity-0 group-hover:opacity-100 max-w-[50px] transition-opacity duration-300 ease-in-out"  :class="{'opacity-100': isLoading}">
+        </div>
+
         <div>
           <div class="font-bold text-xl">TOPUP</div>
           <div class="text-xs opacity-50">Velocity Developer</div>
@@ -68,6 +73,7 @@
     }
     catch (err: any) {
       loginError.value = err.response._data.message
+      isLoading.value = false
     }
   }
 
