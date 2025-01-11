@@ -71,10 +71,10 @@ const items = ref([
       href:'/',
   },
   {
-      key: 'product',
-      label: 'Product',
+      key: 'products',
+      label: 'Products',
       icon: 'lucide:box',
-      href:'/product',
+      href:'/products',
   },
   {
       key: 'customer',
