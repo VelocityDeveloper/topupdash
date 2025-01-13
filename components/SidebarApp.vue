@@ -31,6 +31,7 @@
             }"
         >
           <template #item="{ item }">
+
               <button v-if="item.items" v-ripple :class="[classLink,{'bg-blue-900 text-amber-200' : isActive(item.href)}]">
                   <span class="flex justify-start items-center">
                       <Icon v-if="item.icon" :name="item.icon" mode="svg" :ssr="true" class="mr-2"/>
@@ -44,6 +45,7 @@
                       <span :class="{'ml-5':isChild(item.key)}">{{ item.label }}</span>
                   </span>
               </NuxtLink>
+
           </template>
       </PanelMenu>
 
@@ -74,7 +76,18 @@ const items = ref([
       key: 'products',
       label: 'Products',
       icon: 'lucide:box',
-      href:'/products',
+      items: [
+          {            
+            key: 'products_1',
+            label: 'Semua Product',
+            href:'/products',
+          },
+          {            
+            key: 'products_category',
+            label: 'Category',
+            href:'/products/category',
+          }
+      ]
   },
   {
       key: 'customer',
@@ -85,5 +98,5 @@ const items = ref([
 ]);
 
 //class untuk tombol menu
-const classLink = 'w-full flex items-center justify-between px-4 py-2 cursor-pointer rounded hover:bg-blue-900 hover:text-amber-400';
+const classLink = 'w-full mb-1 flex items-center justify-between px-4 py-2 cursor-pointer rounded hover:bg-blue-900 hover:text-amber-400';
 </script>
