@@ -78,7 +78,7 @@ const items = ref([
       icon: 'lucide:box',
       items: [
           {            
-            key: 'products_1',
+            key: 'products_all',
             label: 'Semua Product',
             href:'/products',
           },
@@ -86,6 +86,11 @@ const items = ref([
             key: 'products_category',
             label: 'Category',
             href:'/products/category',
+          },
+          {            
+            key: 'products_brand',
+            label: 'Brand',
+            href:'/products/brand',
           }
       ]
   },

@@ -9,17 +9,17 @@
 
     <div v-else>
       <DataTable :value="data.data" size="small" stripedRows scrollable>
-        <Column field="category_name" header="Category">
+        <Column field="brand_name" header="brand">
           <template #body="slotProps">
               <div @click="openDialog(slotProps.data,'view')" class="cursor-pointer hover:underline">
-                {{ slotProps.data.category_name }}
+                {{ slotProps.data.brand_name }}
               </div>
           </template>
         </Column>
-        <Column field="category_description" header="Description" class="hidden md:table-cell"></Column>
-        <Column field="category_logo" header="">
+        <Column field="brand_description" header="Description" class="hidden md:table-cell"></Column>
+        <Column field="brand_logo" header="" class="hidden md:table-cell">
           <template #body="slotProps">
-            <img v-if="slotProps.data.logo_url" :src="slotProps.data.logo_url" class="w-8 aspect-square object-cover" alt="Logo" />
+            <img v-if="slotProps.data.logo_url" :src="slotProps.data.logo_url" class="w-10 h-10" alt="Logo" />
           </template>
         </Column>
         <Column :exportable="false"  header="">
@@ -47,9 +47,9 @@
       </Paginator>
     </div>
 
-    <Dialog v-model:visible="dialog" :header="selectedItem ? selectedItem.category_name : 'Category Product'" :style="{ width: '30rem', minHeight: '50vh' }" :breakpoints="{ '1000px': '40rem', '768px': '90vw' }" :modal="true">
-      <ProductCategoryEditForm v-if="dialogAction == 'edit'" :item="selectedItem"/>
-      <ProductCategoryPreview v-else :product="selectedItem" @edit="openDialog(selectedItem,'edit')"/>
+    <Dialog v-model:visible="dialog" :header="selectedItem ? selectedItem.brand_name : 'brand Product'" :style="{ width: '30rem', minHeight: '50vh' }" :breakpoints="{ '1000px': '40rem', '768px': '90vw' }" :modal="true">
+      <ProductBrandEditForm v-if="dialogAction == 'edit'" :item="selectedItem"/>
+      <ProductBrandPreview v-else :product="selectedItem" @edit="openDialog(selectedItem,'edit')"/>
     </Dialog>
 
   </div>
@@ -57,7 +57,7 @@
 
 <script setup lang="ts">
 definePageMeta({
-    title: "Category Product",
+    title: "Brand Product",
 });
 const confirm = useConfirm();
 const toast = useToast();
@@ -69,8 +69,8 @@ const dialog = ref(false);
 const dialogAction = ref('view');
 const client = useSanctumClient();
 const { data, status, error, refresh } = await useAsyncData(
-    'products-category-'+page.value,
-    () => client('/api/product-category?page='+page.value)
+    'products-brand-'+page.value,
+    () => client('/api/product-brand?page='+page.value)
 )
 
 const onPaginate = (event: { page: number }) => {

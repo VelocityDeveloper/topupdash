@@ -2,8 +2,8 @@
   
   <div v-for="field in fields" :key="field.key" class="border-b py-1">
     <div class="font-bold mb-1">{{ field.label }}</div>
-    <div v-if="field.key != 'category_logo'"> {{ product[field.key] }} </div>
-    <img v-if="field.key == 'category_logo' && product['logo_url']" :src="product['logo_url']" class="w-16 h-16" alt="Logo" />
+    <div v-if="field.key != 'brand_logo'"> {{ product[field.key] }} </div>
+    <img v-if="field.key == 'brand_logo' && product['logo_url']" :src="product['logo_url']" class="w-16 h-16" alt="Logo" />
   </div>
 
   <div class="flex justify-end mt-4">
@@ -22,9 +22,9 @@ const props = defineProps({
 const product = props.product;
 
 const fields = [
-  { key: 'category_name', label: 'Category Name' },
-  { key: 'category_description', label: 'Description' },
-  { key: 'category_logo', label: 'Logo' },
+  { key: 'brand_name', label: 'Brand Name' },
+  { key: 'brand_description', label: 'Description' },
+  { key: 'brand_logo', label: 'Logo' },
 ]
 
 </script>
