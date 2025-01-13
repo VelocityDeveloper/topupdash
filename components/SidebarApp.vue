@@ -91,6 +91,11 @@ const items = ref([
             key: 'products_brand',
             label: 'Brand',
             href:'/products/brand',
+          },
+          {            
+            key: 'products_type',
+            label: 'Type',
+            href:'/products/type',
           }
       ]
   },
