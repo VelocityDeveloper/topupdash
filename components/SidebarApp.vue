@@ -101,7 +101,7 @@ const items = ref([
   },
   {
       key: 'customer',
-      label: 'Customer',
+      label: 'Customers',
       icon: 'lucide:users',
       href:'/customer',
   },

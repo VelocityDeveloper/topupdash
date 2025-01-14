@@ -68,7 +68,7 @@
                 },
             }"
             >
-          </Paginator>
+        </Paginator>
     </div>
 
   </div>
@@ -108,7 +108,7 @@
   const client = useSanctumClient();
   const { data, status, error, refresh } = await useAsyncData(
       'products-page-'+page.value,
-      () => client('/api/products/?page='+page.value)
+      () => client('/api/products?page='+page.value)
   )
 
   const onPaginate = (event: { page: number }) => {
