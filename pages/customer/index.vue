@@ -28,16 +28,10 @@
           </template>
         </Column>
         <Column :exportable="false"  header="">
-          <template #body="slotProps">                
-            <div class="flex justify-end gap-1">
-              <Button type="button" @click="openDialog(slotProps.data,'view')" size="small" severity="secondary" class="!p-1">
-                <Icon name="lucide:eye" mode="svg"/>
-              </Button>
-              <Button type="button" @click="openDialog(slotProps.data,'edit')" size="small" severity="info" class="!p-1">
-                <Icon name="lucide:pen" mode="svg"/>
-              </Button>
-              <Button type="button" @click="openDialog(slotProps.data,'key')" size="small" severity="danger" class="!p-1">
-                <Icon name="lucide:key-round" mode="svg"/>
+          <template #body="slotProps">             
+            <div class="flex justify-end">
+              <Button type="button" @click="displayPop($event, slotProps.data)" variant="text" severity="secondary" rounded>
+                <Icon name="lucide:ellipsis-vertical" mode="svg"/>
               </Button>
             </div>
           </template>
@@ -61,7 +55,20 @@
   </div>
 
   <Popover ref="op" :dismissable="true">
-
+    <div v-if="selectedItem" class="rounded flex flex-col">
+      <div class="text-xs border-b pb-1 mb-1 opacity-50">
+        {{ selectedItem.domain }}
+      </div>
+      <Button type="button" @click="openDialog(selectedItem,'view')" severity="secondary" variant="text" class="!p-1 !flex !justify-start">
+          <Icon name="lucide:eye" mode="svg"/> Profil
+      </Button>
+      <Button type="button" @click="openDialog(selectedItem,'edit')" severity="secondary" variant="text" class="!p-1 !flex !justify-start">
+        <Icon name="lucide:pen" mode="svg"/> Edit
+      </Button>
+      <Button type="button" @click="openDialog(selectedItem,'key')" severity="secondary" variant="text" class="!p-1 !flex !justify-start">
+        <Icon name="lucide:key-round" mode="svg"/> Access Key
+      </Button>
+    </div>
   </Popover>
 
   <Dialog v-model:visible="dialog" :header="selectedItem ? selectedItem.domain : 'Customer'" :style="{ width: '40rem', minHeight: '50vh' }" :breakpoints="{ '1000px': '40rem', '768px': '90vw' }" :modal="true">
@@ -120,5 +127,12 @@
       { action: 'edit', label: 'Edit'},
       { action: 'key', label: 'Access Key'},
   ]);
+
+  const displayPop = async (event: Event, data: any) => {
+    dialog.value = false;  
+    op.value.hide();
+    selectedItem.value = data;
+    await op.value.show(event);
+  }
 
 </script>

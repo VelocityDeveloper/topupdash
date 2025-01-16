@@ -37,6 +37,7 @@ const MyPreset = definePreset(Aura, {
 });
 
 export default defineNuxtConfig({
+  ssr: false,
   primevue: {
     autoImport: true,
     options: {
@@ -63,7 +64,7 @@ export default defineNuxtConfig({
       enabled: true,
       allow404WithoutAuth: true,
     },
-    logLevel: 5,
+    logLevel: 1,
   },
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },

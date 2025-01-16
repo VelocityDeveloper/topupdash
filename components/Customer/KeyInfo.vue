@@ -20,7 +20,8 @@
       </div>
       <div class="md:flex-1">
         <div class="flex">
-          <InputText :value="data.license.secret_key" type="text" class="w-full !rounded-e-none" disabled/>
+          <Skeleton v-if="status=='pending'" height="3rem" class="w-full"/>
+          <InputText v-else :value="data.license.secret_key" type="text" class="w-full !rounded-e-none" disabled/>
           <Button severinity="secondary" @click="copyClipboard(data.license.secret_key)" class="!rounded-s-none">
             <Icon name="lucide:copy"/>
           </Button>
@@ -30,7 +31,9 @@
 
     <div class="flex justify-end mt-5">
       <Button severity="danger" @click="confirmGenerate(item.id)" :loading="isLoading">
-        <Icon name="lucide:refresh-cw" mode="svg"/> Perbarui Key
+        <Icon v-if="status=='pending'" name="lucide:loader" mode="svg" class="animate-spin"/>
+        <Icon v-else name="lucide:refresh-cw" mode="svg"/>
+        Perbarui Key
       </Button>
     </div>
 
@@ -41,19 +44,21 @@
 const props = defineProps({
   item: Object
 })
-const item = props.item;
+const item = props.item||{};
 const idCustomer = item.id;
 const isLoading = ref(false);
 const toast = useToast();
 const confirm = useConfirm();
 const client = useSanctumClient();
+const datas = ref({} as any)
 
 const { data, status, error, refresh } = await useAsyncData(
     'customersy-'+idCustomer,
     () => client('/api/customer/key/'+idCustomer)
 )
+datas.value = data.value;
 
-const copyClipboard = (text) => {
+const copyClipboard = (text: any) => {
   navigator.clipboard.writeText(text);
   toast.add({
       severity: 'success',
@@ -77,18 +82,22 @@ const confirmGenerate = (id : any) => {
         label: 'Generate',
         severity: 'danger'
     },
-    accept: async () => {
+    accept: () => {
+      try {
         isLoading.value = true;
-        await client('/api/customer/generatekey/'+id, {
+        client('/api/customer/generatekey/'+id, {
           method: 'POST',
           body: {
-            secret_key: data.license.secret_key,
-            customer_code: data.customer_code
+            secret_key: datas.value.license.secret_key,
+            customer_code: datas.value.customer_code
           }
         });
-        isLoading.value = false;
+        toast.add({ severity: 'success', summary: 'Berhasil', detail: 'Key telah diubah', life: 3000 });
         refresh()
-        toast.add({ severity: 'success', summary: 'Berhasil', detail: 'Berhasil dihapus', life: 3000 });
+      } catch (error) {
+        toast.add({ severity: 'warn', summary: 'Gagal', detail: 'Key gagal diubah', life: 3000 });        
+      }
+      isLoading.value = false;
     },
 });
 };
