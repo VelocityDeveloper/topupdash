@@ -16,18 +16,12 @@
       </div>
     </div>
   </div>
-  <Tabs :value="'/customer/'+idCust" scrollable>
+  <Tabs :value="activeTab" scrollable>
       <TabList>
           <Tab v-for="tab in itemMenus" :key="tab.label" :value="tab.route">
-              <!-- <router-link v-if="tab.route" v-slot="{ href, navigate }" :to="tab.route" custom>
-                  <a v-ripple :href="href" @click="navigate" class="flex items-center gap-2 text-inherit">
-                      <i :class="tab.icon" />
-                      <span>{{ tab.label }}</span>
-                  </a>
-              </router-link> -->
-              <NuxtLink :to="tab.route" class="flex items-center gap-2 text-inherit">
+              <span @click="navigateTo('/customer/'+idCust+tab.route)" dto="'/customer/'+idCust+tab.route" class="flex items-center gap-2 text-inherit">
                 <span>{{ tab.label }}</span>
-              </NuxtLink>
+              </span>
           </Tab>
       </TabList>
   </Tabs>
@@ -39,9 +33,18 @@
 </template>
 
 <script setup lang="ts">
+const props = defineProps(['activeTab'])
+const activeTab = props.activeTab
+const dataCust = ref({} as any)
 const route = useRoute()
 const idCust = route.params.id
-const dataCust = ref({} as any)
+
+const itemMenus = [  
+  { route: '/', label: 'Profil'},
+  { route: '/transaksi', label: 'Transaksi'},
+  { route: '/saldo', label: 'Saldo'},
+  { route: '/edit', label: 'Edit'},
+]
 
 const client = useSanctumClient();
 const { data, status, error, refresh } = await useAsyncData(
@@ -49,12 +52,5 @@ const { data, status, error, refresh } = await useAsyncData(
     () => client('/api/customer/'+idCust)
 )
 dataCust.value = data.value;
-
-const itemMenus = [  
-  { route: '/customer/'+idCust+'', label: 'Profil'},
-  { route: '/customer/'+idCust+'/transaksi', label: 'Transaksi'},
-  { route: '/customer/'+idCust+'/saldo', label: 'Saldo'},
-  { route: '/customer/'+idCust+'/edit', label: 'Edit'},
-]
 
 </script>

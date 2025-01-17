@@ -1,6 +1,6 @@
 <template>
   <Message class="mb-2 font-bold">
-    Edit {{ item.domain }}
+    Edit {{ itemData.domain }}
   </Message>
   
   
@@ -10,7 +10,7 @@
         <label>{{ field.label }}</label>
       </div>
       <div class="md:flex-1">
-        <InputText :id="field.key" v-model="item[field.key]" class="w-full" :type="field.type" />
+        <InputText :id="field.key" v-model="itemData[field.key]" class="w-full" :type="field.type" />
       </div>
     </div>
 
@@ -32,12 +32,15 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+    title: `EditProfil Customer`,
+});
 const props = defineProps({
   item: Object
 })
-const item = props.item;
-const idItem = item.id;
-const isLoading = ref(false)
+const itemData = props.item as any;
+const idItem = itemData.id;
+const isLoading = ref(false);
 const toast = useToast();
 const client = useSanctumClient();
 
@@ -55,11 +58,11 @@ const handleFormSubmit = async () => {
     const response = await client(`/api/customer/${idItem}`, {
       method: 'PUT',
       body: {
-        name: item.name,
-        domain: item.domain,
-        telepon: item.telepon,
-        email: item.email,
-        status: item.status
+        name: itemData.name,
+        domain: itemData.domain,
+        telepon: itemData.telepon,
+        email: itemData.email,
+        status: itemData.status
       }
     });
     toast.add({

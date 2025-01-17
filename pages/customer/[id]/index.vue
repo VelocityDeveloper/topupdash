@@ -1,5 +1,5 @@
 <template>
-  <CustomerLayout>
+  <CustomerLayout activeTab="/">
     <div class="flex flex-col md:flex-row gap-4">
 
       <div class="md:flex-1">
