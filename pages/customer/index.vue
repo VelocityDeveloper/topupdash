@@ -12,9 +12,9 @@
         <Column field="customer_code" header="Code" class="hidden 2xl:table-cell"></Column>
         <Column field="domain" header="Domain">
           <template #body="slotProps">
-              <div @click="openDialog(slotProps.data,'view')" class="cursor-pointer hover:underline">
+              <NuxtLink :to="`/customer/${slotProps.data.id}`" class="cursor-pointer hover:underline">
                 {{ slotProps.data.domain }}
-              </div>
+              </NuxtLink>
           </template>
         </Column>
         <Column field="name" header="Name" class="hidden md:table-cell"></Column>

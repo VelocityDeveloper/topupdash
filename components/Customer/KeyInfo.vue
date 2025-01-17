@@ -1,11 +1,11 @@
 <template>
   <div>
 
-    <div class="border-b py-2 flex flex-col md:flex-row">
-      <div class="md:basis-1/4 font-bold mb-1">
+    <div class="border-b py-2">
+      <div class="mb-1">
         Customer Code
       </div>
-      <div class="md:flex-1">  
+      <div>  
         <div class="flex">
           <InputText :value="data.customer_code" type="text" class="w-full !rounded-e-none" disabled/>
           <Button severinity="secondary" @click="copyClipboard(data.customer_code)" class="!rounded-s-none">
@@ -14,11 +14,11 @@
          </div> 
       </div>
     </div>    
-    <div class="border-b py-2 flex flex-col md:flex-row">
-      <div class="md:basis-1/4 font-bold mb-1">
+    <div class="border-b py-2">
+      <div class="mb-1">
         Secret Key
       </div>
-      <div class="md:flex-1">
+      <div>
         <div class="flex">
           <Skeleton v-if="status=='pending'" height="3rem" class="w-full"/>
           <InputText v-else :value="data.license.secret_key" type="text" class="w-full !rounded-e-none" disabled/>
