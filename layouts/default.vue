@@ -56,6 +56,11 @@
     </main>
 
   </div>
+
+  <Dialog v-model:visible="dialog" header="Profil Akun" :style="{ width: '40rem', minHeight: '50vh' }" :breakpoints="{ '1000px': '40rem', '768px': '90vw' }" :modal="true">
+    <UserEdit />
+  </Dialog>
+
 </template>
 
 <script setup lang="ts">
@@ -74,6 +79,12 @@
       {
           label: user.value?.name,
           items: [
+              {
+                  label: 'Profil',
+                  command: () => {
+                      dialog.value = true;
+                  }
+              },
               {
                   label: 'Logout',
                   command: () => {
@@ -111,4 +122,5 @@
     ];
 }
 
+const dialog = ref(false);
 </script>
