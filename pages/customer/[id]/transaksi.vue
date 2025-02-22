@@ -1,9 +1,9 @@
-<script setup lang="ts"></script>
-
 <template>
-  <div>
+  <CustomerLayout activeTab="/transaksi">
+
     Page: customer/[id]/transaksi
-  </div>
+    
+  </CustomerLayout>
 </template>
 
-<style scoped></style>
+<script setup lang="ts"></script>

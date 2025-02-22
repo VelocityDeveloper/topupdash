@@ -105,6 +105,12 @@ const items = ref([
       icon: 'lucide:users',
       href:'/customer',
   },
+  {
+      key: 'transaction',
+      label: 'Transactions',
+      icon: 'lucide:receipt-text',
+      href:'/transaction',
+  },
 ]);
 
 //class untuk tombol menu

@@ -46,7 +46,7 @@ export default defineNuxtConfig({
         options: {
           darkModeSelector: '.dark',
         }
-      },
+      }
     }
   },
   sanctum: {
