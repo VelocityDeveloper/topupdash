@@ -1,5 +1,4 @@
 <template>
-  <form>
 
     <form class="flex justify-end gap-2 mb-3">
       <DatePicker
@@ -80,7 +79,6 @@
         </Paginator>
     </div>
 
-  </form>
 </template>
 
 <script setup lang="ts">

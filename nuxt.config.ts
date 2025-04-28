@@ -1,54 +1,28 @@
-import Aura from '@primevue/themes/aura';
-import { definePreset } from '@primevue/themes';
+import Aura from '@primeuix/themes/aura';
+import { definePreset } from '@primeuix/themes';
 const MyPreset = definePreset(Aura, {
   semantic: {
-    primary: {
-        50: '{zinc.50}',
-        100: '{zinc.100}',
-        200: '{zinc.200}',
-        300: '{zinc.300}',
-        400: '{zinc.400}',
-        500: '{zinc.500}',
-        600: '{zinc.600}',
-        700: '{zinc.700}',
-        800: '{zinc.800}',
-        900: '{zinc.900}',
-        950: '{zinc.950}'
-    },
-    colorScheme: {
-        light: {
-            primary: {
-                color: '{zinc.950}',
-                inverseColor: '#ffffff',
-                hoverColor: '{zinc.900}',
-                activeColor: '{zinc.800}'
-            }
-        },
-        dark: {
-            primary: {
-                color: '{zinc.50}',
-                inverseColor: '{zinc.950}',
-                hoverColor: '{zinc.100}',
-                activeColor: '{zinc.200}'
-            },
-        }
-    }
+      primary: {
+          50: '{sky.50}',
+          100: '{sky.100}',
+          200: '{sky.200}',
+          300: '{sky.300}',
+          400: '{sky.400}',
+          500: '{sky.500}',
+          600: '{sky.600}',
+          700: '{sky.700}',
+          800: '{sky.800}',
+          900: '{sky.900}',
+          950: '{sky.950}'
+      }
   }
 });
 
+// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: false,
-  primevue: {
-    autoImport: true,
-    options: {
-      theme: {
-        preset: MyPreset,
-        options: {
-          darkModeSelector: '.dark',
-        }
-      }
-    }
-  },
+  compatibilityDate: '2024-11-01',
+  devtools: { enabled: true },
+  ssr: false,  
   sanctum: {
     mode: 'cookie',
     baseUrl: process.env.API_URL,
@@ -66,13 +40,61 @@ export default defineNuxtConfig({
     },
     logLevel: 1,
   },
-  compatibilityDate: '2024-11-01',
-  devtools: { enabled: true },
+  primevue: {
+    autoImport: true,
+    options: {
+        theme: {
+            preset: MyPreset,
+            options: {
+              darkModeSelector: '.dark',
+            }
+        }
+    }
+  }, 
+  tailwindcss: {   
+    config: { 
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: 'theme(colors.sky.500)',
+              50: 'theme(colors.sky.50)',
+              100: 'theme(colors.sky.100)',
+              200: 'theme(colors.sky.200)',
+              300: 'theme(colors.sky.300)',
+              400: 'theme(colors.sky.400)',
+              500: 'theme(colors.sky.500)',
+              600: 'theme(colors.sky.600)',
+              700: 'theme(colors.sky.700)',
+              800: 'theme(colors.sky.800)',
+              900: 'theme(colors.sky.900)',
+            },
+            secondary: {
+              DEFAULT: 'theme(colors.yellow.500)',
+              50: 'theme(colors.yellow.50)',
+              100: 'theme(colors.yellow.100)',
+              200: 'theme(colors.yellow.200)',
+              300: 'theme(colors.yellow.300)',
+              400: 'theme(colors.yellow.400)',
+              500: 'theme(colors.yellow.500)',
+              600: 'theme(colors.yellow.600)',
+              700: 'theme(colors.yellow.700)',
+              800: 'theme(colors.yellow.800)',
+              900: 'theme(colors.yellow.900)',
+            },
+          },
+        },
+      },
+    },
+  },
   modules: [
-    '@primevue/nuxt-module',
+    '@nuxtjs/tailwindcss',
     'nuxt-auth-sanctum',
+    '@primevue/nuxt-module',
     '@nuxt/icon',
     '@pinia/nuxt',
-    '@nuxtjs/tailwindcss',
-  ],
+    'dayjs-nuxt',
+    '@nuxt/fonts'
+  ]
 })
