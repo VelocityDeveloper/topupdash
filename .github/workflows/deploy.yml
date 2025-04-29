@@ -40,6 +40,7 @@ jobs:
           **/.git*
           **/node_modules/**
           **/.github/**
-          api/**
-          .htaccess
+          **/.env.production
+          **/.htaccess
+          **/api/**
         dangerous-clean-slate: false
