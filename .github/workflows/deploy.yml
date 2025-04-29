@@ -41,4 +41,5 @@ jobs:
           **/node_modules/**
           **/.github/**
           api/**
-        dangerous-clean-slate: true
+          .htaccess
+        dangerous-clean-slate: false
